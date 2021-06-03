@@ -875,8 +875,14 @@ namespace GitTfs.Core
         {
             var builder = new StringWriter();
             builder.WriteLine(tfsCheckinComment);
+
+            // e.g. https://dev.azure.com/AvernaProligent/Proligent/_versionControl/changeset/110494/
+            var changesetUrl = $"{TfsUrl}/{TfsRepositoryPath.Split('/')[1]}/_versionControl/changeset/{changesetId}/";
+            builder.WriteLine($"git-tfs-cs-url: [{changesetUrl}]");
+
             builder.WriteLine(GitTfsConstants.TfsCommitInfoFormat,
                 TfsUrl, TfsRepositoryPath, changesetId);
+         
             return builder.ToString();
         }
 
